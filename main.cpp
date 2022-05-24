@@ -37,34 +37,76 @@ public:
 	}
 };
 
+class Queue
+{
+public:
+	Queue(int NewCapicity = 10)
+	{
+		Capicity = NewCapicity;
+		Database = new int[Capicity];
+		Size = 0;
+	}
+
+	virtual ~Queue()
+	{
+		delete[] Database;
+	}
+
+	int* Database;
+	int Capicity;
+	int Size;
+
+	bool Push(int Data)
+	{
+		if (Size > Capicity)
+		{
+			return false;
+		}
+
+		Database[Size++] = Data;
+
+		return true;
+	}
+
+	int Pop()
+	{
+		if (Size <= 0)
+		{
+			return -1;
+		}
+
+		int Number = Database[0];
+		for (int i = 0; i < Size - 1; ++i)
+		{
+			Database[i] = Database[i + 1];
+		}
+
+		Size--;
+
+		return Number;
+	}
+};
+
 
 int main()
 {
-	Stack<float> IntStack;
+	Queue IntQueue;
 
-	for (int i = 1; i <= 10; ++i)
+	for (int i = 0; i < 10; ++i)
 	{
-		IntStack.Push(i * 1.1f);
+		IntQueue.Push(i);
 	}
 
-	for (int i = 1; i <= 10; ++i)
-	{
-		cout << IntStack.Top() << ", ";
-		IntStack.Pop();
-	}
+	cout << IntQueue.Pop() << endl;
+	cout << IntQueue.Pop() << endl;
 
-	stack<float> FloatStackSTL;
-	for (int i = 1; i <= 10; ++i)
-	{
-		FloatStackSTL.push(i * 1.1f);
-	}
+	IntQueue.Push(10);
+	IntQueue.Push(11);
 
-	for (int i = 1; i <= 10; ++i)
+	for (int i = 0; i < 13; ++i)
 	{
-		cout << FloatStackSTL.top() << ", ";
-		FloatStackSTL.pop();
+		cout << IntQueue.Pop() << endl;
 	}
-
 
 	return 0;
 
