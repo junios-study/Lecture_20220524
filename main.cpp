@@ -53,11 +53,6 @@ public:
 		delete[] Database;
 	}
 
-protected:
-	T* Database;
-	int Capicity;
-	int Size;
-
 public:
 	//Accessor
 	int GetSize() { return Size; }
@@ -91,15 +86,20 @@ public:
 
 		return Number;
 	}
+
+protected:
+	T* Database;
+	int Capicity;
+	int Size;
 };
 
-template<typename T>
+template <typename T>
 class ChildQueue : public Queue<T>
 {
 public:
 	void Clear()
 	{
-		Size = 0;
+		Queue::Size = 0;
 	}
 };
 
