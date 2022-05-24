@@ -37,6 +37,7 @@ public:
 	}
 };
 
+template<typename T>
 class Queue
 {
 public:
@@ -52,9 +53,13 @@ public:
 		delete[] Database;
 	}
 
-	int* Database;
+protected:
+	T* Database;
 	int Capicity;
 	int Size;
+
+public:
+	int GetSize() { return Size; }
 
 	bool Push(int Data)
 	{
@@ -68,14 +73,14 @@ public:
 		return true;
 	}
 
-	int Pop()
+	T Pop()
 	{
 		if (Size <= 0)
 		{
 			return -1;
 		}
 
-		int Number = Database[0];
+		T Number = Database[0];
 		for (int i = 0; i < Size - 1; ++i)
 		{
 			Database[i] = Database[i + 1];
@@ -87,10 +92,23 @@ public:
 	}
 };
 
+template<typename T>
+class ChildQueue : public Queue<T>
+{
+public:
+	void Clear()
+	{
+		Size = 0;
+	}
+};
+
 
 int main()
 {
-	Queue IntQueue;
+	queue<int> intQ;
+
+	ChildQueue<int> IntQueue;
+
 
 	for (int i = 0; i < 10; ++i)
 	{
@@ -100,10 +118,12 @@ int main()
 	cout << IntQueue.Pop() << endl;
 	cout << IntQueue.Pop() << endl;
 
+	//IntQueue.Clear();
+
 	IntQueue.Push(10);
 	IntQueue.Push(11);
 
-	for (int i = 0; i < 13; ++i)
+	while (IntQueue.GetSize() != 0)
 	{
 		cout << IntQueue.Pop() << endl;
 	}
