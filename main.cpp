@@ -2,61 +2,73 @@
 
 using namespace std;
 
-class Parent
+
+class StaticClass
 {
 public:
-	Parent() : Money(0) {}
-	virtual ~Parent() {}
+	StaticClass()
+	{
+		Count++;
+	}
 
-	void Do()
+	virtual ~StaticClass()
+	{
+		Count--;
+	}
+
+	static int Count;
+};
+
+int StaticClass::Count = 0;
+
+
+
+class Singleton
+{
+private:
+	Singleton()
 	{
 
+	}
+
+	int Gold;
+
+public:
+	Singleton* Do()
+	{
+		Gold;
+		return this;
+	}
+
+	virtual ~Singleton()
+	{
+
+	}
+
+	static Singleton* GetInstance()
+	{
+		if (Singleton::Instance == nullptr)
+		{
+			Singleton::Instance = new Singleton();
+		}
+
+		return Singleton::Instance;
 	}
 
 private:
-	int Money;
+	static Singleton* Instance;
 
-protected:
-	int ChildMoney;
-
-public:
-	//Accessor
-	int GetMoney()
-	{ 
-		return Money;
-	}
-
-	void SetMoney(int NewMoney)
-	{
-		if (NewMoney > 0)
-		{
-			Money = NewMoney;
-		}
-	}
 };
 
-class 김남욱 : public Parent
-{
-public:
-	void Waste()
-	{
-		ChildMoney = -100;
-	}
-};
+Singleton* Singleton::Instance = nullptr;
 
-//		
-//public		공개		상속(자식이 사용가능)
-//protected		비공개		상속(자식이 사용가능)
-//private		비공개		상속X(자식이 사용 불가능)
+
+
 
 int main()
 {
-	Parent P;
-	P.Do();
-	cout << P.GetMoney() << endl;
-	P.SetMoney(10);
-	cout << P.GetMoney() << endl;
+	Singleton::GetInstance()->Do();
+	
+	//cout << StaticClass::Count << endl;
 
-	김남욱 A;
-	A.Waste();
 }
