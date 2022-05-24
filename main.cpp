@@ -44,6 +44,11 @@ public:
 	}
 };
 
+//		
+//public		공개		상속(자식이 사용가능)
+//protected		비공개		상속(자식이 사용가능)
+//private		비공개		상속X(자식이 사용 불가능)
+
 int main()
 {
 	Parent P;
