@@ -59,6 +59,7 @@ protected:
 	int Size;
 
 public:
+	//Accessor
 	int GetSize() { return Size; }
 
 	bool Push(int Data)
