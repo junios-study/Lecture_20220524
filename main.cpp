@@ -1,41 +1,70 @@
 #include <iostream>
 #include <string>
+#include <stack>
+#include <queue>
 
 using namespace std;
 
-//Standard Template Library
-
-//template function
+//#####						3,3
+//#  ##						3,2	
+//# # #						3,1
+//#  P#						2,1
+//#####						1,1
 template<typename T>
-T Sum(T A, T B)
+class Stack
 {
-	return A + B;
-}
+public:
+	Stack() {}
+	virtual ~Stack() {}
 
-template<typename X, typename Y, typename Z>
-Z Begin(X A, Y B)
-{
+	T Database[10];
 
-	cout << A << endl;
-	cout << B << endl;
+	int Cursor = -1;
 
+	void Push(T A)
+	{
+		Database[++Cursor] = A;
+	}
 
-	return (Z)(65);
-}
+	void Pop()
+	{
+		Cursor--;
+	}
+
+	T Top()
+	{
+		return Database[Cursor];
+	}
+};
 
 
 int main()
 {
-	cout << Sum<int>(1, 2) << endl;
-	cout << Sum<char>((char)64, (char)1) << endl;
-	cout << Sum<float>(2.0f, 3.4f) << endl;
-	cout << Sum<string>(string("Hello "), string("World")) << endl;
-	cout << Sum<double>(323.0, 1011.111) << endl;
+	Stack<float> IntStack;
 
-	cout << Begin<int, float, char>(static_cast<int>(2.2f), 20.5f) << endl;
+	for (int i = 1; i <= 10; ++i)
+	{
+		IntStack.Push(i * 1.1f);
+	}
 
+	for (int i = 1; i <= 10; ++i)
+	{
+		cout << IntStack.Top() << ", ";
+		IntStack.Pop();
+	}
 
-	cout << Begin<int, int, char>(10,(int) 20.5f) << endl;
+	stack<float> FloatStackSTL;
+	for (int i = 1; i <= 10; ++i)
+	{
+		FloatStackSTL.push(i * 1.1f);
+	}
+
+	for (int i = 1; i <= 10; ++i)
+	{
+		cout << FloatStackSTL.top() << ", ";
+		FloatStackSTL.pop();
+	}
+
 
 	return 0;
 
