@@ -46,6 +46,8 @@ public:
 		Capicity = NewCapicity;
 		Database = new int[Capicity];
 		Size = 0;
+		Front = 0;
+		Back = 0;
 	}
 
 	virtual ~Queue()
@@ -56,6 +58,7 @@ public:
 public:
 	//Accessor
 	int GetSize() { return Size; }
+	int GetCapicity() { return Capicity;  }
 
 	bool Push(int Data)
 	{
@@ -64,7 +67,9 @@ public:
 			return false;
 		}
 
-		Database[Size++] = Data;
+		Database[Back++] = Data;
+		Back = Back % Capicity;
+		Size++;
 
 		return true;
 	}
@@ -76,11 +81,8 @@ public:
 			return -1;
 		}
 
-		T Number = Database[0];
-		for (int i = 0; i < Size - 1; ++i)
-		{
-			Database[i] = Database[i + 1];
-		}
+		T Number = Database[Front++];
+		Front = Front % Capicity;
 
 		Size--;
 
@@ -91,6 +93,8 @@ protected:
 	T* Database;
 	int Capicity;
 	int Size;
+	int Front;
+	int Back;
 };
 
 template <typename T>
@@ -106,12 +110,11 @@ public:
 
 int main()
 {
-	queue<int> intQ;
 
-	ChildQueue<int> IntQueue;
+	Queue<int> IntQueue(10000);
 
 
-	for (int i = 0; i < 10; ++i)
+	for (int i = 0; i < IntQueue.GetCapicity(); ++i)
 	{
 		IntQueue.Push(i);
 	}
