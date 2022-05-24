@@ -1,137 +1,57 @@
 #include <iostream>
-#include <string>
-#include <stack>
-#include <queue>
 
 using namespace std;
 
-//#####						3,3
-//#  ##						3,2	
-//# # #						3,1
-//#  P#						2,1
-//#####						1,1
-template<typename T>
-class Stack
+class Parent
 {
 public:
-	Stack() {}
-	virtual ~Stack() {}
+	Parent() : Money(0) {}
+	virtual ~Parent() {}
 
-	T Database[10];
-
-	int Cursor = -1;
-
-	void Push(T A)
+	void Do()
 	{
-		Database[++Cursor] = A;
+
 	}
 
-	void Pop()
-	{
-		Cursor--;
-	}
+private:
+	int Money;
 
-	T Top()
-	{
-		return Database[Cursor];
-	}
-};
-
-template<typename T>
-class Queue
-{
-public:
-	Queue(int NewCapicity = 10)
-	{
-		Capicity = NewCapicity;
-		Database = new int[Capicity];
-		Size = 0;
-		Front = 0;
-		Back = 0;
-	}
-
-	virtual ~Queue()
-	{
-		delete[] Database;
-	}
+protected:
+	int ChildMoney;
 
 public:
 	//Accessor
-	int GetSize() { return Size; }
-	int GetCapicity() { return Capicity;  }
-
-	bool Push(int Data)
-	{
-		if (Size > Capicity)
-		{
-			return false;
-		}
-
-		Database[Back++] = Data;
-		Back = Back % Capicity;
-		Size++;
-
-		return true;
+	int GetMoney()
+	{ 
+		return Money;
 	}
 
-	T Pop()
+	void SetMoney(int NewMoney)
 	{
-		if (Size <= 0)
+		if (NewMoney > 0)
 		{
-			return -1;
+			Money = NewMoney;
 		}
-
-		T Number = Database[Front++];
-		Front = Front % Capicity;
-
-		Size--;
-
-		return Number;
 	}
-
-protected:
-	T* Database;
-	int Capicity;
-	int Size;
-	int Front;
-	int Back;
 };
 
-template <typename T>
-class ChildQueue : public Queue<T>
+class ±è³²¿í : public Parent
 {
 public:
-	void Clear()
+	void Waste()
 	{
-		Queue::Size = 0;
+		ChildMoney = -100;
 	}
 };
-
 
 int main()
 {
+	Parent P;
+	P.Do();
+	cout << P.GetMoney() << endl;
+	P.SetMoney(10);
+	cout << P.GetMoney() << endl;
 
-	Queue<int> IntQueue(10000);
-
-
-	for (int i = 0; i < IntQueue.GetCapicity(); ++i)
-	{
-		IntQueue.Push(i);
-	}
-
-	cout << IntQueue.Pop() << endl;
-	cout << IntQueue.Pop() << endl;
-
-	//IntQueue.Clear();
-
-	IntQueue.Push(10);
-	IntQueue.Push(11);
-
-	while (IntQueue.GetSize() != 0)
-	{
-		cout << IntQueue.Pop() << endl;
-	}
-
-	return 0;
-
+	±è³²¿í A;
+	A.Waste();
 }
